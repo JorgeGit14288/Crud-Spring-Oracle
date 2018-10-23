@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ public class TestDao implements TestInterfaz {
     public List<TestModel> GetAll() {
         try {
             
-            List<TestModel> lista = null;
+            ArrayList<TestModel> lista = new ArrayList<TestModel>();
             Conexion objcon = new Conexion();
             Connection myCon = objcon.getConnection();
             ResultSet resultSet;
@@ -37,15 +38,19 @@ public class TestDao implements TestInterfaz {
                 TestModel model = new TestModel();
                 model.setId(resultSet.getInt("id"));
                 model.setName(resultSet.getString("name"));
-                model.setStatus(Boolean.parseBoolean(resultSet.getString("status")));                       
-                lista.add(model);                
-                System.out.println(" row " + resultSet.getString(1) +" "+ resultSet.getString(2) +" "+ resultSet.getString(3) );                                
+                //model.setStatus(Boolean.parseBoolean(resultSet.getString("status")));                       
+                int statusTemp = resultSet.getInt("status");
+                if(statusTemp==1)
+                    model.setStatus(true);
+                else
+                    model.setStatus(false);
+                lista.add(model);                                                 
             }
             return lista;
-        } catch (SQLException ex) {
-            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
             return null;
-        }        
+        }                
     }
 
     @Override

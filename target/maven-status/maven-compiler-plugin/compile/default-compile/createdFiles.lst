@@ -1,5 +1,9 @@
 com\spring\configurations\SpringWebConfig.class
 com\controllers\HomeController.class
+com\interfaz\TestInterfaz.class
+com\dao\TestDao.class
+com\model\TestModel.class
+com\controllers\TestController.class
 com\spring\configurations\SpringWebApplicationInitializer.class
 com\dal\Conexion.class
 com\controllers\AboutController.class
